@@ -1,0 +1,54 @@
+
+<!-- <section class="header"> -->
+
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<section class="body">
+    <div class="container">
+        <div class="alert-box">
+            <p class="alert"></p>
+        </div>
+        <div class="box">
+            <!---------------------------- login --------------------------------------->
+            <div class="box-login" id="login">
+                <div class="top-header">
+                    <h3>Login</h3>
+                </div>
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    <div class="input-group">
+                        <!-- Username -->
+                        <div class="input-field">
+                            <input type="email" class="input-box" id="email" name="email" required>
+                            <label for="email">Email</label> <!-- Changed to Email -->
+                        </div>
+                        <!-- Password -->
+                        <div class="input-field">
+                            <input type="password" class="input-box" id="password" name="password" required>
+                            <label for="password">Password</label>
+                            <div class="eye-area">
+                                <div class="eye-box" onclick="togglePassword('password', 'eye-login', 'eye-slash-login')">
+                                    <i class="fa-regular fa-eye" id="eye-login"></i>
+                                    <i class="fa-regular fa-eye-slash" id="eye-slash-login"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Remember Me Checkbox -->
+                        <div class="remember">
+                            <input type="checkbox" id="formCheck2" class="check" name="remember_me">
+                            <label for="formCheck2">Remember Me</label>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="input-field">
+                            <input type="submit" class="input-submit" value="Log In" required>
+                        </div>
+                        <a href="{{ url_for('auth.sign_up') }}" id="signup" class="link">Don't have an account? Sign up
+                            here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

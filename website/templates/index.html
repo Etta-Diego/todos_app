@@ -1,0 +1,33 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Todos Page{% endblock %}</title></title>
+ </head>
+ <body>
+    <h1>Welcome to Todos!</h1>
+    
+    <ul>
+        {% for task in tasks %}
+        <li>{{ task }}</li>
+        {% endfor %}
+
+        <form method="POST" action="{{ url_for('add_task') }}">
+    <label for="newTask">Add Task:</label>
+    <input type="text" id="newTask" name="newTask" required>
+    <button type="submit">Add</button>
+</form>
+    </ul>
+
+    <form method="POST" action="{{ url_for('add_task') }}">
+        <label for="newTask">Add Task:</label>
+        <input type="text" id="newTask" name="newTask" required>
+        <button type="submit">Add</button>
+    </form>
+
+
+    <script type="text/javascript"
+    src="{{ url_for('static', filename='index.js') }}"></script>
+ </body>
+ </html>

@@ -1,0 +1,183 @@
+/* Smooth scrolling for the entire page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Ensure images take up no more than their container's width */
+img {
+    max-width: 100%;
+}
+
+/* Default styling for anchor links */
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Remove bullet points from unordered lists */
+ul {
+    list-style: none;
+}
+
+/* Header section styling */
+header {
+    margin-top: 0;
+    background-size: 70px;
+    height: 7%;
+    width: 100%;
+    background-color: #5c3b00;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+/* Logo padding */
+.logo {
+    padding-left: 70px;
+}
+
+/* Navigation bar styling */
+nav {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo image inside the nav */
+nav img {
+    width: 150px;
+}
+
+/* Navigation list item styling */
+.nav-links ul li {
+    display: inline-block;
+    padding: 0 20px;
+    position: relative;
+    padding-right: 100px;
+}
+
+/* Styling for nav links */
+.nav-links ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Hover effect for nav links */
+.nav-links ul li a:hover {
+    color: rgb(45, 189, 45);
+    transition: 0.8s;
+}
+
+/* Hide the burger icon by default (only shown on mobile) */
+.burger {
+    display: none;
+}
+
+/* Media query for screens between 769px and 1200px */
+@media only screen and (min-width: 769px) and (max-width: 1200px) {
+    .nav-links ul li {
+        padding-right: 0;
+    }
+
+    .nav-links ul li a {
+        font-size: 15px;
+    }
+}
+
+/* Styles for screens between 360px and 768px (mobile view) */
+@media screen and (min-width: 360px) and (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        right: 0;
+        height: 100dvh;
+        top: 8vh;
+        background-color: #E1341E;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 30%;
+        transform: translateX(100%);
+        /* Start off-screen */
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        /* Ensure menu stays above other content */
+    }
+
+    /* Navigation list item styling */
+    .nav-links li {
+        top: 20%;
+        opacity: 0;
+        margin-bottom: 50px;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Show the burger icon */
+    .burger {
+        display: block;
+        cursor: pointer;
+        position: relative;
+        z-index: 1000;
+        /* Keep the burger above the menu */
+    }
+
+    /* Burger icon bar styling */
+    .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+    /* Change burger color when hovered */
+    .burger:hover div {
+        background-color: red;
+    }
+
+    /* Burger bar turns red when clicked */
+    .burger.clicked div {
+        background-color: red;
+    }
+
+    /* When nav is active, slide in the menu */
+    .nav-active {
+        transform: translateX(0);
+    }
+
+    /* Animation for menu links appearing */
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .nav-links li {
+        animation: navLinkFade 0.5s ease forwards 0.5s;
+    }
+
+    /* Backdrop (background overlay) for mobile menu */
+    .menu-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent overlay */
+        z-index: 998;
+        /* Place backdrop just below the menu */
+        display: none;
+        /* Hidden by default */
+    }
+
+    /* Show backdrop when the menu is active */
+    .menu-backdrop.display {
+        display: block;
+    }
+}

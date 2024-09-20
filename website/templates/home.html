@@ -1,0 +1,75 @@
+<!-- {% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+{% endblock %} -->
+
+{% extends "base.html" %}
+{% block title %}Todos{% endblock %}
+
+
+{% block content %}
+
+<div class="welcome-section">
+    <h2>Welcome to Todos</h2>
+    <p class="quote">{{ quote }}</p> <!-- Display the quote here -->
+</div>
+
+
+<h3>Add a New Task to the Table</h3>
+<form method="POST">
+
+    <div>
+        <label for="item">Item Name</label>
+        <input type="text" id="item" name="item" placeholder="Enter item name" required> <br>
+
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" placeholder="Enter description" required> <br>
+
+        <label for="location">Location</label>
+        <input type="text" name="location" id="location" placeholder="Enter location" required> <br>
+
+        <label for="date">Due Date</label>
+        <input type="date" name="date" id="date" placeholder="Due date" required> <br>
+
+        <label for="status">Status</label> <!-- New Status Label -->
+        <select name="status" id="status">
+            <option value="select" selected>Select Status</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="working-on-it">Working on it</option>
+        </select> <br>
+
+        <label for="note">Note</label> <!-- New Note Label -->
+        <input type="text" name="notes" id="note" placeholder="Write some notes" required> <br>
+
+        <button onclick="addRow()">Create Task</button> <br>
+    </div>
+
+</form>
+
+
+<div class="form">
+    <h2>Task List</h2>
+    <table border="2">
+        <thead>
+            <!-- Display existing task from flask here -->
+            {% for task in tasks %}
+            <tr id="task-{{ task.id }}">
+                <td id="task-item-{{ task.id }}">{{ task.item }}</td>
+                <td id="task-description-{{ task.id }}">{{ task.description }}</td>
+                <td id="task-location-{{ task.id }}">{{ task.location }}</td>
+                <td id="task-notes-{{ task.id }}">{{ task.notes }}</td>
+                <td id="task-status-{{ task.id }}">{{ task.status }}</td>
+                <td id="task-date-{{ task.id }}">{{ task.date.strftime('%Y-%m-%d') }}</td>
+                <td><button onclick="updateTodo({{ task.id }})">Update</button></td>
+                <td><button onclick="deleteTodo({{ task.id }})">Delete</button></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+</div>
+<br>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+{% endblock %}
