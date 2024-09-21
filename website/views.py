@@ -61,12 +61,12 @@ def home():
     # Code to handle form submission goes here
     if request.method == 'POST':
         # Retrieve data from the form
-        item = request.form.get('item')
-        description = request.form.get('description')
-        location = request.form.get('location')
-        date = request.form.get('date')
-        status = request.form.get('status')
-        notes = request.form.get('notes')
+        item = request.home.get('item')
+        description = request.home.get('description')
+        location = request.home.get('location')
+        date = request.home.get('date')
+        status = request.home.get('status')
+        notes = request.home.get('notes')
 
         new_task = Todos(
             item=item,
@@ -102,7 +102,7 @@ def delete(task_id):
         db.session.delete(task)
         db.session.commit()
         flash('Task deleted successfully!', category='success')
-    return redirect(url_for('views.form'))
+    return redirect(url_for('views.home'))
 
 @views.route('/update/<int:task_id>', methods=['POST'])
 @login_required

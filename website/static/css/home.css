@@ -1,0 +1,117 @@
+/* Smooth scrolling for the entire page */
+.home {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", 'Fira sans', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --dark: #374151;
+    --darker: #1F2937;
+    --darkest: #111827;
+    --grey: #6B7280;
+    --pink: #EC4899;
+    --purple: #8B5CF6;
+    --light: #EEE;
+}
+
+.home-container {
+    display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        color: #FFF;
+        background-color: var(--dark);
+}
+
+.intro {
+    padding: 2rem 1rem;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.intro h1 {
+    font-size: 2.5rem;
+     font-weight: 300;
+    color: var(--grey);
+    margin-bottom: 1rem;
+}
+
+.quote {
+    border: 3px;
+    background-color: var(--darker);
+    padding: 1rem;
+    justify-items: center;
+}
+
+.page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.button {
+    appearance: none;
+    border: none;
+    outline: none;
+
+    display: inline-block;
+    background-color: #FE4880;
+    color: #FFF;
+    font-size: 20px;
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        margin: 0px 15px;
+}
+
+.button .large {
+    font-size: 24px;
+    padding: 15px 30px;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+
+.popup.is-active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    padding: 50px 30px;
+    background-color: #FFF;
+    border-radius: 16px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}

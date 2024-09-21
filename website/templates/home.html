@@ -8,12 +8,21 @@
 
 {% block content %}
 
-<div class="welcome-section">
-    <h2>Welcome to Todos</h2>
-    <p class="quote">{{ quote }}</p> <!-- Display the quote here -->
+<section class="home">
+    <div class="home-container">
+<div class="intro">
+    <h1>Welcome, {{ user.username }}!</h1>
+    <br>
+    <p class="quote">Quote For You: <br> {{ quote }}</p> <!-- Display the quote here -->
 </div>
 
+<div class="page">
+<div class="button large popup-button" data-target="#create_task">Create New Task</div>
+</div>
 
+<div class="popup" id="create_task">
+    <div class="popup-overlay popup-button" data-target="#create_task"></div>
+        <div class="popup-inner">
 <h3>Add a New Task to the Table</h3>
 <form method="POST">
 
@@ -42,14 +51,16 @@
         <input type="text" name="notes" id="note" placeholder="Write some notes" required> <br>
 
         <button onclick="addRow()">Create Task</button> <br>
+        <button class="button popup-button" data-target="#create_task">Add Task</button> 
     </div>
-
 </form>
+</div>
+</div>
 
 
 <div class="form">
     <h2>Task List</h2>
-    <table border="2">
+    <tableborder="2">
         <thead>
             <!-- Display existing task from flask here -->
             {% for task in tasks %}
@@ -70,6 +81,7 @@
 <br>
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+</div>
+</section>
 
 {% endblock %}

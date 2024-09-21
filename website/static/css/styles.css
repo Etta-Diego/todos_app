@@ -25,10 +25,10 @@ ul {
 
 
 .hero {
-  min-height: 100vh;
+  min-height: 100dvh;
   height: auto;
-    width: 100%;
-    background: linear-gradient(#af7c0f 5%,
+  width: 100%;
+  background: linear-gradient(#af7c0f 5%,
           #dcbd7a 95%,
           #D1A952 100%);
     background-position: center;

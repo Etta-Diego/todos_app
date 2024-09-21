@@ -31,9 +31,3 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(150), nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False) 
-
-    # Define the relationship of user to Note
-    # notes = db.relationship('Note', back_populates='user')
-
-    # def get_id(self):
-    #     return self.id

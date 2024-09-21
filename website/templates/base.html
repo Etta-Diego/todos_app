@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
@@ -15,6 +16,7 @@
 
         {% block stylesheet %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
         {% endblock %}
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
@@ -35,15 +37,14 @@
 
     <header>
         <nav id="navbar">
-            <div class="logo">
-                <a class="nav-item" id="home" href="{{ url_for('views.landing') }}"><img
-                        src="{{ url_for('static', filename='images/Todos_logo3.drawio.png') }}" alt="logo"></a>
-            </div>
+        <a class="logo" id="home"
+            href="{{ url_for('views.landing') }}">
+            <img src="{{ url_for('static', filename='images/Todos_logo3.drawio.png') }}" alt="logo">
+</a>
             <div class="nav-links">
                 <ul>
                     {% if user.is_authenticated %}
                     <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-                    <li class="nav-item">Welcome, {{ user.name }}!</li>
                     {% else %}
                     <li><a href="#features">FEATURES</a></li>
                     <li><a href="#demo">DEMO</a></li>
@@ -99,4 +100,4 @@
     <section class="footer">Never stop Organizing</section>
 </body>
 
-</html>
+</html>        
