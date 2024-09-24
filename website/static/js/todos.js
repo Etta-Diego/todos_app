@@ -1,148 +1,35 @@
-// API to delete task
-// function deleteTodo(todoId) {
-//     fetch(`/delete/${todoId}`, {
-//         method: 'POST',  // Match the Python route expecting POST
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     })
-//     .then(response => {
-//         if (response.ok) {
-//             console.log('Task deleted successfully!');
-//             // Remove the task row from the DOM (optional for smooth transition)
-//             document.getElementById(`task-${todoId}`).remove();
-//         } else {
-//             console.error('Failed to delete task.');
-//         }
-//     });
-// }
-
-// function deleteTodo(todoId) {
-//     fetch(`/delete/${todoId}`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     })
-//     .then(response => response.json())  // Expect a JSON response
-//     .then(data => {
-//         if (data.status === 'success') {
-//             console.log('Task deleted successfully!');
-//             // Remove the task row from the DOM
-//             const deletedRow = document.querySelector(`#task-row-${todoId}`);
-//             if (deletedRow) {
-//                 deletedRow.remove();
-//             }
-//             alert('Task deleted and task numbers updated!');
-//         } else {
-//             console.error('Failed to delete task: ' + data.message);
-//             alert('Error: ' + data.message);
-//         }
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//         alert('An error occurred while deleting the task.');
-//     });
-// }
-
-
-
-
-// function deleteTodo(todoId) {
-//     fetch(`/delete/${todoId}`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     })
-//     .then(response => response.json())  // Expect a JSON response
-//     .then(data => {
-//         if (data.status === 'success') {
-//             console.log('Task deleted successfully!');
-//             // Remove the task row from the DOM
-//             const deletedRow = document.querySelector(`#task-row-${todoId}`);
-//             if (deletedRow) {
-//                 deletedRow.remove();
-//             }
-
-//             alert('Task deleted and task numbers updated!');
-//         } else {
-//             console.error('Failed to delete task: ' + data.message);
-//             alert('Error: ' + data.message);
-//         }
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//         alert('An error occurred while deleting the task.');
-//     });
-// }
-
-
-
-
-// Function to handle task deletion
 function deleteTodo(todoId) {
-        fetch(`/delete/${todoId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token() }}', // If CSRF protection is enabled
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                // Task successfully deleted, now update task numbers in the table
-                const tasks = data.tasks;
-                tasks.forEach(task => {
-                    // Find the row in the table and update the task number
-                    const row = document.querySelector(`#task-row-${task.id}`);
-                    if (row) {
-                        row.querySelector('.task-number').textContent = task.task_number;
-                    }
-                });
-
-                // Optionally, remove the deleted task row from the table
-                const deletedRow = document.querySelector(`#task-row-${todoId}`);
-                if (deletedRow) {
-                    deletedRow.remove();
-                }
-
-                alert('Task deleted and task numbers updated!');
-            } else {
-                alert('Error: ' + data.message);
+    fetch(`/delete/${todoId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())  // Expect a JSON response
+    .then(data => {
+        if (data.status === 'success') {
+            console.log('Task deleted successfully!');
+            
+            // Optionally remove the task from the DOM
+            const deletedRow = document.querySelector(`#task-row-${todoId}`);
+            if (deletedRow) {
+                deletedRow.remove();  // This removes the task immediately
             }
-        })
-        .catch(error => console.error('Error:', error));
-    }
+
+            // Refresh the page after successful deletion
+            window.location.reload();  // This will reload the current page
+        } else {
+            console.error('Failed to delete task: ' + data.message);
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while deleting the task.');
+    });
+}
 
 
-
-
-
-
-
-
-// function updateTodo(todoId) {
-//     fetch(`/get_task/${todoId}`)
-//     .then(response => response.json())
-//     .then(taskData => {
-//         // Pre-fill the form fields with fetched task values
-//         document.getElementById('taskId').value = todoId;
-//         document.getElementById('taskNumber').value = taskData.task_number;
-//         document.getElementById('item').value = taskData.item;
-//         document.getElementById('description').value = taskData.description;
-//         document.getElementById('location').value = taskData.location;
-//         document.getElementById('notes').value = taskData.notes;
-//         document.getElementById('status').value = taskData.status;
-//         document.getElementById('date').value = taskData.date;
-//         document.getElementById('priority').value = taskData.priority;
-
-//         // Show the modal
-//         document.getElementById('updateModal').style.display = 'block';
-//     })
-//     .catch(error => console.error('Error fetching task:', error));
-// }
 
 
 

@@ -271,7 +271,17 @@ textarea.form-element {
 }
 
 
+.low {
+    color: var(--green);
+}
 
+.medium {
+  color: var(--blue);
+}
+
+.high {
+    color: var(--red);
+}
 
 
 
