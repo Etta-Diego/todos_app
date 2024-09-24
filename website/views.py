@@ -134,8 +134,6 @@ def delete(task_id):
         return jsonify({'status': 'error', 'message': 'Task not found or unauthorized action!'}), 403
 
 
-    return redirect(url_for('views.home'))
-
 @views.route('/update/<int:task_id>', methods=['POST'])
 @login_required
 def update(task_id):

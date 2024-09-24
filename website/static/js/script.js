@@ -98,3 +98,9 @@ window.onload = () => {
         });
     });
 }
+
+
+function closeModal() {
+    const modals = document.querySelectorAll('.popup.is-active');
+    modals.forEach(modal => modal.classList.remove('is-active'));
+}

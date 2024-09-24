@@ -32,48 +32,48 @@ function deleteTodo(todoId) {
 
 
 
+function updateTodo(taskId) {
+    // Use JavaScript to grab the values from the table row
+    const taskNumber = document.getElementById(`task-number-${taskId}`).innerText;
+    const item = document.getElementById(`task-item-${taskId}`).innerText;
+    const description = document.getElementById(`task-description-${taskId}`).innerText;
+    const location = document.getElementById(`task-location-${taskId}`).innerText;
+    const date = document.getElementById(`task-date-${taskId}`).innerText;
+    const notes = document.getElementById(`task-notes-${taskId}`).innerText;
+    const status = document.getElementById(`task-status-${taskId}`).innerText;
+    const priority = document.getElementById(`task-priority-${taskId}`).innerText;
+
+    // Populate the modal form fields with the existing data
+    document.getElementById('taskId').value = taskId;  // Hidden input to store task ID
+    document.getElementById('taskNumber').value = taskNumber;  // Task number field
+    document.getElementById('update_item').value = item;  // Item name field
+    document.getElementById('update_description').value = description;  // Description field
+    document.getElementById('update_location').value = location;  // Location field
+    document.getElementById('update_date').value = date;  // Date field
+    document.getElementById('update_note').value = notes;  // Notes field
+
+    // Set the status and priority dropdowns
+    document.getElementById('update_status').value = status;  // Status dropdown
+    document.getElementById('update_priority').value = priority;  // Priority dropdown
+
+    // Open the popup modal
+    const popup_el = document.querySelector('#update_task');
+    if (popup_el) {
+        popup_el.classList.add('is-active');  // Add class to make modal visible
+    }
+}
+
 
 function submitUpdate() {
-    const todoId = document.getElementById('taskId').value;
-    const updatedItem = document.getElementById('item').value;
-    const updatedDescription = document.getElementById('description').value;
-    const updatedLocation = document.getElementById('location').value;
-    const updatedNotes = document.getElementById('notes').value;
-    const updatedStatus = document.getElementById('status').value;
-    const updatedDate = document.getElementById('date').value;
-    const updatedPriority = document.getElementById('priority').value;
+    const taskId = document.getElementById('taskId').value;
+    const updatedItem = document.getElementById('update_item').value;
+    const updatedDescription = document.getElementById('update_description').value;
+    const updatedLocation = document.getElementById('update_location').value;
+    const updatedDate = document.getElementById('update_date').value;
+    const updatedNotes = document.getElementById('update_note').value;
+    const updatedStatus = document.getElementById('update_status').value;
+    const updatedPriority = document.getElementById('update_priority').value;
 
-    fetch(`/update/${todoId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            item: updatedItem,
-            description: updatedDescription,
-            location: updatedLocation,
-            notes: updatedNotes,
-            status: updatedStatus,
-            date: updatedDate,
-            priority: updatedPriority
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Task updated successfully!');
-            // Update the table with new task values
-            document.getElementById(`task-item-${todoId}`).textContent = updatedItem;
-            document.getElementById(`task-description-${todoId}`).textContent = updatedDescription;
-            document.getElementById(`task-location-${todoId}`).textContent = updatedLocation;
-            document.getElementById(`task-notes-${todoId}`).textContent = updatedNotes;
-            document.getElementById(`task-status-${todoId}`).textContent = updatedStatus;
-            document.getElementById(`task-date-${todoId}`).textContent = updatedDate;
-            document.getElementById(`task-priority-${todoId}`).textContent = updatedPriority;
-
-            // Close the modal
-            document.getElementById('updateModal').style.display = 'none';
-        } else {
-            console.error('Failed to update task.');
-        }
-    });
+    // Send the updated data via an AJAX request or a form submit (depending on your setup)
+    // You can use fetch API, axios, or jQuery.ajax based on your preferred method
 }
