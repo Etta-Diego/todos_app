@@ -13,7 +13,8 @@
 <div class="intro">
     <h1>Welcome, {{ user.username }}!</h1>
     <br>
-    <p class="quote">Quote For You: <br> {{ quote }}</p> <!-- Display the quote here -->
+    <h3 class="q">Quote For You:</h3>
+    <p class="quote"> <br> {{ quote }}</p> <!-- Display the quote here -->
 </div>
 
 <div class="page">
@@ -22,64 +23,175 @@
 
 <div class="popup" id="create_task">
     <div class="popup-overlay popup-button" data-target="#create_task"></div>
+    <!-- <div class="popup-overlay popup-button" data-target="#update_task"></div> -->
         <div class="popup-inner">
+
 <h3>Add a New Task to the Table</h3>
+    
 <form method="POST">
-
-    <div>
+    <div class="form-group">
         <label for="item">Item Name</label>
-        <input type="text" id="item" name="item" placeholder="Enter item name" required> <br>
-
-        <label for="description">Description</label>
-        <input type="text" name="description" id="description" placeholder="Enter description" required> <br>
-
-        <label for="location">Location</label>
-        <input type="text" name="location" id="location" placeholder="Enter location" required> <br>
-
-        <label for="date">Due Date</label>
-        <input type="date" name="date" id="date" placeholder="Due date" required> <br>
-
-        <label for="status">Status</label> <!-- New Status Label -->
-        <select name="status" id="status">
-            <option value="select" selected>Select Status</option>
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
-            <option value="working-on-it">Working on it</option>
-        </select> <br>
-
-        <label for="note">Note</label> <!-- New Note Label -->
-        <input type="text" name="notes" id="note" placeholder="Write some notes" required> <br>
-
-        <button onclick="addRow()">Create Task</button> <br>
-        <button class="button popup-button" data-target="#create_task">Add Task</button> 
+        <input type="text" id="item" name="item" class="form-element" placeholder="Enter item name" required>
     </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" name="description" class="form-element" id="description" placeholder="Enter description"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" name="location" id="location" class="form-element" placeholder="Enter location" required>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Due Date</label>
+        <input type="date" name="date" id="date" class="form-element" required>
+    </div>
+
+    <!-- Inline group for priority and status -->
+    <div class="inline-group">
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority" class="form-element">
+                <option value="select" selected>Select Priority</option>
+                <option value="low">Low Priority: Can be done later</option>
+                <option value="medium">Important: Needs to be done this week</option>
+                <option value="high">Urgent: Must be done today</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select name="status" id="status" class="form-element">
+                <option value="select" selected>Select Status</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+                <option value="working-on-it">Working on it</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group full">
+        <label for="note">Note</label>
+        <textarea name="notes" id="note" class="form-element" placeholder="Write some notes"></textarea>
+    </div>
+
+    <div class="submit-group button popup-button">
+        <input type="submit" value="Add Task" class="form-element" />
+    </div>
+    <button class="button popup-button" data-target="#create_task">Close</button>
 </form>
+
+
+
+</div>
 </div>
 </div>
 
 
-<div class="form">
+
+<div class="popup" id="update_task">
+    <div class="popup-overlay popup-button" data-target="#update_task"></div>
+    <div class="popup-inner">
+        <h3>Edit Task</h3>
+        <form id="updateForm" method="POST">
+            <input type="hidden" id="taskId">
+            <div class="form-group">
+                <label for="taskNumber">Task Number</label>
+                <input type="text" id="taskNumber" readonly><br>
+            </div>
+            <div class="form-group">
+                <label for="item">Item Name</label>
+                <input type="text" id="item" name="item" class="form-element" placeholder="Enter item name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" name="description" class="form-element" id="description"
+                    placeholder="Enter description" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location" class="form-element" placeholder="Enter location"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="date">Due Date</label>
+                <input type="date" name="date" id="date" class="form-element" required>
+            </div>
+            <div class="inline-group">
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority" class="form-element">
+                        <option value="select" selected>Select Priority</option>
+                        <option value="low">Low Priority: Can be done later</option>
+                        <option value="medium">Important: Needs to be done this week</option>
+                        <option value="high">Urgent: Must be done today</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" class="form-element">
+                        <option value="select" selected>Select Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="working-on-it">Working on it</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group full">
+                <label for="note">Note</label>
+                <textarea name="notes" id="note" class="form-element" placeholder="Write some notes"></textarea>
+            </div>
+            <button type="button" class="button popup-button" data-target="#update_task" onclick="submitUpdate()">Update
+                Task</button>
+            <button type="button" class="button popup-button" data-target="#update_task"
+                onclick="closeModal()">Close</button>
+        </form>
+    </div>
+</div>
+
+<div class="table_body">
+<div class="forms">
     <h2>Task List</h2>
-    <tableborder="2">
+    <!-- <tableborder="2"> -->
+        <table>
         <thead>
+            <tr>
+                <th>Task Number<span class="icon-arrow">&UpArrow;</span></th>
+                <th>Task Title<span class="icon-arrow">&UpArrow;</span></th>
+                <th>Task Description<span class="icon-arrow">&UpArrow;</span></th>
+                <th>Location<span class="icon-arrow">&UpArrow;</span></th>
+                <th>Date<span class="icon-arrow">&UpArrow;</span></th>
+                <th>Notes<span class="icon-arrow">&UpArrow;</span></th>
+                <th>Status<span class="icon-arrow">&UpArrow;</span></th>
+                <th>Priority<span class="icon-arrow">&UpArrow;</span></th>
+            </tr>
+</thead>
+<tbody>
             <!-- Display existing task from flask here -->
             {% for task in tasks %}
             <tr id="task-{{ task.id }}">
+                <td id="task-number-{{ loop.index }}">{{ task.task_number }}</td>
                 <td id="task-item-{{ task.id }}">{{ task.item }}</td>
                 <td id="task-description-{{ task.id }}">{{ task.description }}</td>
                 <td id="task-location-{{ task.id }}">{{ task.location }}</td>
+                <td id="task-date-{{ task.id }}">{{ task.date.strftime('%Y-%m-%d') }}</td>
                 <td id="task-notes-{{ task.id }}">{{ task.notes }}</td>
                 <td id="task-status-{{ task.id }}">{{ task.status }}</td>
-                <td id="task-date-{{ task.id }}">{{ task.date.strftime('%Y-%m-%d') }}</td>
-                <td><button onclick="updateTodo({{ task.id }})">Update</button></td>
+                <td id="task-priority-{{ task.id }}">{{ task.priority }}</td>
+                <td><div class="button large popup-button" data-target="#update_task"><button onclick="updateTodo({{ task.id }})">Update</button></div></td>
                 <td><button onclick="deleteTodo({{ task.id }})">Delete</button></td>
             </tr>
             {% endfor %}
             </tbody>
     </table>
 </div>
+</div>
 <br>
 
+<script src="{{ url_for('static', filename='js/todos.js') }}"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </div>
 </section>

@@ -4,12 +4,14 @@ from sqlalchemy.sql import func
 
 class Todos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    task_number = db.Column(db.Integer, nullable=False)   
     item = db.Column(db.String(200))
     description = db.Column(db.String(2000))
     location = db.Column(db.String(200))
     notes = db.Column(db.String(2000))
     date = db.Column(db.DateTime(timezone=True), default=func.now)
     status = db.Column(db.String(50))  # Add a status field
+    priority = db.Column(db.String(50)) 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
     

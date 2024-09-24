@@ -1,11 +1,4 @@
 /* Smooth scrolling for the entire page */
-.home {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", 'Fira sans', sans-serif;
-}
-
 html {
     scroll-behavior: smooth;
 }
@@ -18,21 +11,56 @@ html {
     --pink: #EC4899;
     --purple: #8B5CF6;
     --light: #EEE;
+    --orange: #FFA07A;
+    --brown: #a88548;
+        --green: #34D399;
+        --red: #EF4444;
+        --blue: #3B82F6;
+
 }
 
-.home-container {
-    display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        color: #FFF;
-        background-color: var(--dark);
+
+.home {
+    /* display: flex; */
+    /* flex-direction: column; */
+    min-height: 100dvh;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    /* color: #FFF; */
+    background-color: var(--dark);
+    font-family: "Poppins", 'Fira sans', sans-serif;
 }
+
+.home .home-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+
+@media (min-width: 1024px) {
+.home-container { 
+        padding-left: 128px;
+        padding-right: 128px;
+}
+}
+
+@media (min-width: 768px) {
+    .home-container {
+    padding-left: 64px;
+    padding-right: 64px;
+    }
+}
+
+
 
 .intro {
-    padding: 2rem 1rem;
+    /* padding: 2rem 1rem; */
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
+    align-items: center;
 }
 
 .intro h1 {
@@ -40,12 +68,25 @@ html {
      font-weight: 300;
     color: var(--grey);
     margin-bottom: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.q {
+    color: var(--brown);
+    font-size: 2rem;
+    padding-bottom: 10px;
 }
 
 .quote {
-    border: 3px;
+   padding-top: 0;
+   color: var(--orange);
+   font-size: 1.5rem;
+    /* border: 3px; */
     background-color: var(--darker);
-    padding: 1rem;
+    /* padding: 1rem; */
+    line-height: 1.5;
+        margin-bottom: 60px;
     justify-items: center;
 }
 
@@ -53,15 +94,18 @@ html {
         display: flex;
         align-items: center;
         justify-content: center;
-}
+        padding-bottom: 60px;
+        /* min-height: 100vh; */
+        /* /* max-width: 100%; */
+} 
 
-.button {
+.home-container .button {
     appearance: none;
     border: none;
     outline: none;
 
     display: inline-block;
-    background-color: #FE4880;
+    background-color: var(--green);
     color: #FFF;
     font-size: 20px;
         padding: 10px 15px;
@@ -103,7 +147,7 @@ html {
     right: 0;
     bottom: 0;
     z-index: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(0, 0, 0, 0.5);
 }
 
 .popup-inner {
@@ -111,7 +155,259 @@ html {
     z-index: 1;
     max-width: 600px;
     padding: 50px 30px;
-    background-color: #FFF;
+    background-color: var(--light);
     border-radius: 16px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* General form styling */
+.home-container form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 16px;
+    background-color: #fff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Media query for wider screens */
+@media (min-width: 768px) {
+    form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Styling for form-group */
+.home-container .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Full-width elements for wide fields like textarea */
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+/* Label styling */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--grey);
+    font-size: 14px;
+}
+
+/* Input and select field styling */
+.home-container .form-element {
+    appearance: none;
+    outline: none;
+    border: none;
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    padding: 12px 16px;
+    background-color: #F3F3F3;
+    transition: 0.4s;
+}
+
+/* Focus state for input and select fields */
+.home-container .form-element:focus {
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+    background-color: #FFF;
+}
+
+/* Styling for the textarea */
+textarea.form-element {
+    resize: none;
+    min-height: 100px;
+}
+
+/* Submit button styling */
+.submit-group {
+    grid-column: 1 / -1;
+    text-align: right;
+}
+
+/* Button styling */
+.home-container input[type="submit"] {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 12px 16px;
+    /* background-color: #FF9FDB; */
+    border-radius: 8px;
+    /* color: #FFF; */
+    cursor: pointer;
+    transition: 0.4s;
+    font-weight: 600;
+}
+
+/* Hover effect for submit button */
+.home-container input[type="submit"]:hover {
+    background-color: var(--purple);
+}
+
+/* Inline group for priority and status */
+.inline-group {
+    display: flex;
+    /* Use flexbox to align items */
+    justify-content: space-between;
+    /* Space them evenly */
+    grid-column: 1 / -1;
+    /* Span the full width */
+}
+
+.inline-group .form-group {
+    flex: 1;
+    /* Allow each item to take equal space */
+    margin-right: 8px;
+    /* Add some space between the two */
+}
+
+.inline-group .form-group:last-child {
+    margin-right: 0;
+    /* Remove margin for the last item */
+}
+
+
+
+
+
+
+/* Table Container */
+.table_body {
+    /* width: 82dvw; */
+    width: 60%;
+    height: auto;
+    background-color: var(--brown);
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    overflow: hidden;
+
+    display: flex;
+        justify-content: center;
+        /* Center horizontally */
+        align-items: center;
+        /* Center vertically */
+        margin: auto;/
+}
+
+
+/* Table Header */
+.table_body h2 {
+    text-align: center;
+    margin: 1rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.table-body .forms {
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+@media print {
+
+    .table,
+    .table__body {
+        overflow: visible;
+        height: auto !important;
+        width: auto !important;
+    }
+}
+
+th,
+td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Table Headers */
+thead th {
+    position: sticky;
+    top: 0;
+    background-color: #d5d1de;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+thead th span.icon-arrow {
+    display: inline-block;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    border: 1.4px solid transparent;
+    text-align: center;
+    font-size: 1rem;
+    margin-left: .5rem;
+    transition: .2s ease-in-out;
+}
+
+thead th:hover span.icon-arrow {
+    border: 1.4px solid #6c00bd;
+}
+
+thead th:hover {
+    color: #6c00bd;
+}
+
+thead th.active span.icon-arrow {
+    background-color: #6c00bd;
+    color: #fff;
+}
+
+thead th.asc span.icon-arrow {
+    transform: rotate(180deg);
+}
+
+/* Body Rows */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #ddd;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #6c00bd;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4b0092;
+}
+
+/* Scrollbars */
+.table_body::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table_body::-webkit-scrollbar-thumb {
+    border-radius: .5rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table_body:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+}
+
+@media (max-width: 1000px) {
+    td:not(:first-of-type) {
+        min-width: 12.1rem;
+    }
 }

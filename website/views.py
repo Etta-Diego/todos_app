@@ -60,21 +60,27 @@ def landing():
 def home():
     # Code to handle form submission goes here
     if request.method == 'POST':
+
+        task_count = Todos.query.filter_by(user_id=current_user.id).count() + 1
+
         # Retrieve data from the form
-        item = request.home.get('item')
-        description = request.home.get('description')
-        location = request.home.get('location')
-        date = request.home.get('date')
-        status = request.home.get('status')
-        notes = request.home.get('notes')
+        item = request.form.get('item')
+        description = request.form.get('description')
+        location = request.form.get('location')
+        date = request.form.get('date')
+        priority = request.form.get('priority')
+        status = request.form.get('status')
+        notes = request.form.get('notes')
 
         new_task = Todos(
+            task_number=task_count,
             item=item,
             status=status,
             notes=notes,
             description=description,
             location=location,
             date=datetime.strptime(date, '%Y-%m-%d'),
+            priority=priority, 
             user_id=current_user.id,
             )
 
@@ -87,21 +93,47 @@ def home():
         flash('Task added successfully!', category='success')
         return redirect(url_for('views.home'))
 
-    user_task = Todos.query.filter_by(user_id=current_user.id).all()
-    
+  # Fetch all tasks for the current user and enumerate them
+    user_tasks = Todos.query.filter_by(user_id=current_user.id).all()
+   
+
+
+    # Fetch the random motivational quote
     quotes = fetch_random_quote()
 
-    return render_template('home.html', tasks=user_task, user=current_user, quote=quotes)
+    # Render the template with both tasks (numbered) and the quote
+    return render_template('home.html', tasks=user_tasks, user=current_user, quote=quotes)
 
 
 @views.route('/delete/<int:task_id>', methods=['POST'])
 @login_required
 def delete(task_id):
-    task = Todos.query.get_or_404(task_id)
-    if task.user_id == current_user.id:
-        db.session.delete(task)
+    # task = Todos.query.get_or_404(task_id)
+    # Find the task to delete
+    task_to_delete = Todos.query.get_or_404(task_id)
+
+    # Delete the task
+    if task_to_delete and task_to_delete.user_id == current_user.id:
+        db.session.delete(task_to_delete)
         db.session.commit()
-        flash('Task deleted successfully!', category='success')
+
+        # Fetch the remaining tasks and renumber them
+        tasks = Todos.query.filter_by(user_id=current_user.id).order_by(Todos.task_number).all()
+
+        # Renumber remaining tasks starting fCommitrom 1
+        for index, task in enumerate(tasks, start=1):
+            task.task_number = index
+
+        #  the changes to the database
+        db.session.commit()
+
+        # Return the updated task list as JSON
+        updated_tasks = [{'id': task.id, 'task_number': task.task_number} for task in tasks]
+        return jsonify({'status': 'success', 'tasks': updated_tasks}), 200
+    else:
+        return jsonify({'status': 'error', 'message': 'Task not found or unauthorized action!'}), 403
+
+
     return redirect(url_for('views.home'))
 
 @views.route('/update/<int:task_id>', methods=['POST'])
@@ -113,6 +145,7 @@ def update(task_id):
         data = request.get_json()
         task.item = data.get('item', task.item)
         task.description = data.get('description', task.description)
+        task.priority = data.get('priority', task.priority)
         task.location = data.get('location', task.location)
         task.notes = data.get('notes', task.notes)
         task.status = data.get('status', task.status)
@@ -123,3 +156,19 @@ def update(task_id):
         return {'message': 'Task updated successfully!'}, 200
     return {'message': 'Unauthorized'}, 403   
 
+
+@views.route('/get_task/<int:task_id>', methods=['GET'])
+def get_task(task_id):
+    # Assuming Task is your SQLAlchemy model
+    task = Todos.query.get_or_404(task_id)
+    task_data = {
+        'task_number': task.task_number,
+        'item': task.item,
+        'description': task.description,
+        'location': task.location,
+        'date': task.date.strftime('%Y-%m-%d'),  # Format date for HTML input
+        'notes': task.notes,
+        'status': task.status,
+        'priority': task.priority
+    }
+    return jsonify(task_data)

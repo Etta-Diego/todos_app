@@ -1,4 +1,3 @@
-// ---------------Javascript for the menu button
 
 // Selecting the elements
 const burger = document.querySelector('.burger');
@@ -82,3 +81,20 @@ setTimeout(function() {
         }, 500); // Wait for animation to finish before hiding
     }
 }, 5000); // 5000 milliseconds = 5 seconds
+
+
+// button pop up function
+window.onload = () => {
+    const popup_btns = document.querySelectorAll('.popup-button');
+
+    popup_btns.forEach(button => {
+        button.addEventListener('click', e => {
+            const target = e.target.dataset.target;
+
+            const popup_el = document.querySelector(target);
+            if (popup_el != null) {
+                popup_el.classList.toggle('is-active');
+            }
+        });
+    });
+}
